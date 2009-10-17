@@ -31,5 +31,6 @@ public interface Growl
 
     void setAllowedNotifications(String... notifications);
 
+    // This is the list of enabled notifications for the allowed list
     void setDefaultNotifications(String... notifications);
 }
