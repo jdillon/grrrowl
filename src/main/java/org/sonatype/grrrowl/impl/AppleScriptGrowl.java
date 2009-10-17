@@ -42,6 +42,8 @@ public class AppleScriptGrowl
 
     private static final String GROWL_HELPER_APP = "GrowlHelperApp";
 
+    private static final String ENGINE_NAME = "AppleScript";
+
     private final ScriptEngine engine;
 
     private final String appName;
@@ -56,9 +58,9 @@ public class AppleScriptGrowl
         this.appName = appName;
 
         ScriptEngineManager manager = new ScriptEngineManager();
-        engine = manager.getEngineByName("AppleScript");
+        engine = manager.getEngineByName(ENGINE_NAME);
         if (engine == null) {
-            throw new UnsupportedOperationException("AppleScript engine is not available");
+            throw new UnsupportedOperationException("Engine is not available: " + ENGINE_NAME);
         }
 
         // TODO: Check if we can send scripts to apps not installed
