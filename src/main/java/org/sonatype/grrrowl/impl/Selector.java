@@ -14,22 +14,42 @@
  * limitations under the License.
  */
 
-package org.sonatype.grrrowl;
+package org.sonatype.grrrowl.impl;
+
+import com.sun.jna.NativeLong;
 
 /**
- * Provides an interface to <a href="http://growl.info">Growl</a>.
+ * Represents an Objective-C <tt>selector</tt> type.
  *
- * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
+ * @author spleaner
  *
  * @since 1.0
  */
-public interface Growl
+public class Selector
+    extends NativeLong
 {
-    void register();
+    private String myName;
 
-    void notifyGrowlOf(String notification, String title, String description);
+    public Selector() {
+        this("undefined selector", 0);
+    }
 
-    void setAllowedNotifications(String... notifications);
+    public Selector(String name, long value) {
+        super(value);
+        myName = name;
+    }
 
-    void setDefaultNotifications(String... notifications);
+    public String getName() {
+        return myName;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[Selector %s]", myName);
+    }
+
+    public Selector initName(final String name) {
+        myName = name;
+        return this;
+    }
 }

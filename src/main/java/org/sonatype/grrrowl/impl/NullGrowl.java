@@ -14,22 +14,33 @@
  * limitations under the License.
  */
 
-package org.sonatype.grrrowl;
+package org.sonatype.grrrowl.impl;
+
+import org.sonatype.grrrowl.Growl;
 
 /**
- * Provides an interface to <a href="http://growl.info">Growl</a>.
+ * A null/do-nothing {@link Growl}.}
  *
  * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
  *
  * @since 1.0
  */
-public interface Growl
+public class NullGrowl
+    implements Growl
 {
-    void register();
+    public void register() {
+        // nothing
+    }
 
-    void notifyGrowlOf(String notification, String title, String description);
+    public void notifyGrowlOf(String notification, String title, String description) {
+        // nothing
+    }
 
-    void setAllowedNotifications(String... notifications);
+    public void setAllowedNotifications(String... notifications) {
+        // nothing
+    }
 
-    void setDefaultNotifications(String... notifications);
+    public void setDefaultNotifications(String... notifications) {
+        // nothing
+    }
 }

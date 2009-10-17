@@ -14,22 +14,43 @@
  * limitations under the License.
  */
 
-package org.sonatype.grrrowl;
+package org.sonatype.grrrowl.impl;
+
+import com.sun.jna.NativeLong;
 
 /**
- * Provides an interface to <a href="http://growl.info">Growl</a>.
+ * Represents a Objective-C <tt>ID</tt> type.
  *
- * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
+ * @author spleaner
  *
  * @since 1.0
  */
-public interface Growl
+public class ID
+    extends NativeLong
 {
-    void register();
+    static ID fromLong(long value) {
+        return new ID(value);
+    }
 
-    void notifyGrowlOf(String notification, String title, String description);
+    // for JNA
+    public ID() {
+        super();
+    }
 
-    void setAllowedNotifications(String... notifications);
+    protected ID(long value) {
+        super(value);
+    }
 
-    void setDefaultNotifications(String... notifications);
+    protected ID(ID anotherID) {
+        this(anotherID.longValue());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[ID 0x%x]", longValue()); //$NON-NLS-1$
+    }
+
+    public boolean isNull() {
+        return longValue() == 0;
+    }
 }

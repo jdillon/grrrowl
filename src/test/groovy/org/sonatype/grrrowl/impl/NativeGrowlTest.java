@@ -14,22 +14,29 @@
  * limitations under the License.
  */
 
-package org.sonatype.grrrowl;
+package org.sonatype.grrrowl.impl;
+
+import org.junit.Test;
+import org.sonatype.grrrowl.Growl;
 
 /**
- * Provides an interface to <a href="http://growl.info">Growl</a>.
+ * Tests for {@link NativeGrowl}.
  *
  * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
- *
- * @since 1.0
  */
-public interface Growl
+public class NativeGrowlTest
 {
-    void register();
+    @Test
+    public void testGrowl() throws Exception {
+        Growl growl = new NativeGrowl("Test Growl");
+        String[] notifications = {
+            "foo",
+            "bar"
+        };
+        growl.setAllowedNotifications(notifications);
+        growl.setDefaultNotifications(notifications);
+        growl.register();
 
-    void notifyGrowlOf(String notification, String title, String description);
-
-    void setAllowedNotifications(String... notifications);
-
-    void setDefaultNotifications(String... notifications);
+        growl.notifyGrowlOf("foo", "Test Foo", "This is a test of the 'foo' notification.");
+    }
 }

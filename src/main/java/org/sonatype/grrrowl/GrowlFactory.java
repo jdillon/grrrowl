@@ -16,6 +16,9 @@
 
 package org.sonatype.grrrowl;
 
+import org.sonatype.grrrowl.impl.NativeGrowl;
+import org.sonatype.grrrowl.impl.NullGrowl;
+
 /**
  * Provides an interface to <a href="http://growl.info">Growl</a>.
  *
@@ -23,13 +26,20 @@ package org.sonatype.grrrowl;
  *
  * @since 1.0
  */
-public interface Growl
+public class GrowlFactory
 {
-    void register();
-
-    void notifyGrowlOf(String notification, String title, String description);
-
-    void setAllowedNotifications(String... notifications);
-
-    void setDefaultNotifications(String... notifications);
+    //
+    // TODO: Consider adding applescript support a fallback if jna is missing:
+    //       http://growl.info/documentation/applescript-support.php
+    //       Using javax.script muck to invoke.
+    //
+    
+    public static Growl create(String appName) {
+        try {
+            return new NativeGrowl(appName);
+        }
+        catch (Throwable t) {
+            return new NullGrowl();
+        }
+    }
 }
