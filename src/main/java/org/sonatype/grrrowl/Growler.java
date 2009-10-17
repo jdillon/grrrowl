@@ -16,6 +16,7 @@
 
 package org.sonatype.grrrowl;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -43,6 +44,14 @@ public class Growler
 
     public Growler(final String appName) {
         this(appName, null);
+    }
+
+    public Collection<String> getNotifications() {
+        return notifications;
+    }
+
+    public Collection<String> getEnabled() {
+        return enabled;
     }
 
     public void add(final String... notifications) {
