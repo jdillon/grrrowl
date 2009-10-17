@@ -5,6 +5,11 @@ package org.sonatype.grrrowl;
  */
 public class Growl
 {
+    //
+    // TODO: Consider adding applescript support a fallback if jna is missing:
+    //       http://growl.info/documentation/applescript-support.php
+    //
+    
     private static final String GROWL_APPLICATION_REGISTRATION_NOTIFICATION = "GrowlApplicationRegistrationNotification";
     private static final String GROWL_APP_NAME = "ApplicationName";
     private static final String GROWL_APP_ICON = "ApplicationIcon";
