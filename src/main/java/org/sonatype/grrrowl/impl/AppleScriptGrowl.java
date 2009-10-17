@@ -27,7 +27,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
- * Provides {@link Growl} support via AppleScript.
+ * Provides {@link Growl} support via <a href="http://growl.info/documentation/applescript-support.php">AppleScript</a>.
  *
  * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
  *
