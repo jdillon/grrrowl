@@ -50,7 +50,7 @@ public class Foundation
      * Get the ID of the NSClass with className
      */
     public static ID getClass(String className) {
-        log.debug("calling objc_getClass({})", className);
+        log.trace("calling objc_getClass({})", className);
         return foundationLibrary.objc_getClass(className);
     }
 
