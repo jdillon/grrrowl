@@ -17,8 +17,6 @@
 package org.sonatype.grrrowl;
 
 import org.junit.Test;
-import org.sonatype.grrrowl.Growl;
-import org.sonatype.grrrowl.impl.NativeGrowl;
 
 /**
  * Tests for {@link Growler}.

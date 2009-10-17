@@ -16,10 +16,6 @@
 
 package org.sonatype.grrrowl.impl.jna;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.sonatype.grrrowl.Growl;
-
 /**
  * Constants for NS Cocoa muck.
  *
