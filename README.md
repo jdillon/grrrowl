@@ -6,6 +6,11 @@ Support for Growl Notifications.
 This code comes from [Intellij IDEA Community Edition](http://www.jetbrains.org/display/IJOS/Home)
 and has been massaged slightly.
 
+License
+-------
+
+[Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
+
 Building
 --------
 
