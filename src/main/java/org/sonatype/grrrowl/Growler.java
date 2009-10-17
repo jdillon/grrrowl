@@ -86,7 +86,7 @@ public class Growler
     }
 
     public void register() {
-        register(false);
+        register(true);
     }
 
     public void growl(final String notification, final String title, final String description) {
