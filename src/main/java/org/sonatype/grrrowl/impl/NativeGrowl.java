@@ -60,6 +60,7 @@ public class NativeGrowl
     public NativeGrowl(final String appName) {
         assert appName != null;
         this.appName = appName;
+        Foundation.load();
     }
 
     public void register() {

@@ -87,4 +87,6 @@ public class Foundation
     public static void cfRelease(final ID id) {
         foundationLibrary.CFRelease(id);
     }
+
+    public static void load() {}
 }
