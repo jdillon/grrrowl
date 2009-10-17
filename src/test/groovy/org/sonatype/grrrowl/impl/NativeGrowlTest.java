@@ -34,12 +34,8 @@ public class NativeGrowlTest
         }
         
         Growl growl = new NativeGrowl("Test Growl");
-        String[] notifications = {
-            "foo",
-            "bar"
-        };
-        growl.setAllowedNotifications(notifications);
-        growl.setDefaultNotifications(notifications);
+        growl.setAllowedNotifications("foo", "bar");
+        growl.setDefaultNotifications("foo");
         growl.register();
 
         growl.notifyGrowlOf("foo", "Test Foo", "This is a test of the 'foo' notification.");
