@@ -55,7 +55,7 @@ public class NativeGrowl
 
     private String[] allNotifications;
 
-    private String[] defaultNotification;
+    private String[] defaultNotifications;
 
     public NativeGrowl(final String appName) {
         assert appName != null;
@@ -65,9 +65,8 @@ public class NativeGrowl
     public void register() {
         final ID autoReleasePool = createAutoReleasePool();
         final ID applicationIcon = getApplicationIcon();
-        final ID defaultNotifications = fillArray(defaultNotification);
+        final ID defaultNotifications = fillArray(this.defaultNotifications);
         final ID allNotifications = fillArray(this.allNotifications);
-
         final ID userDict = createDict(new String[]{
                 GROWL_APP_NAME, GROWL_APP_ICON, GROWL_DEFAULT_NOTIFICATIONS, GROWL_ALL_NOTIFICATIONS
             },
@@ -85,7 +84,6 @@ public class NativeGrowl
         log.debug("Notifying growl of: {} {} {}", new Object[] {notification, title, description});
 
         final ID autoReleasePool = createAutoReleasePool();
-
         final ID dict = createDict(new String[]{
                 GROWL_NOTIFICATION_NAME, GROWL_NOTIFICATION_TITLE, GROWL_NOTIFICATION_DESCRIPTION, GROWL_APP_NAME
             },
@@ -101,11 +99,13 @@ public class NativeGrowl
     }
 
     public void setAllowedNotifications(final String... notifications) {
+        assert notifications != null;
         this.allNotifications = notifications;
     }
 
     public void setDefaultNotifications(final String... notifications) {
-        this.defaultNotification = notifications;
+        assert notifications != null;
+        this.defaultNotifications = notifications;
     }
 
     private static ID createAutoReleasePool() {
@@ -126,7 +126,6 @@ public class NativeGrowl
         assert values != null;
         final ID nsKeys = invoke(NSARRAY, "arrayWithObjects:", convertTypes(keys));
         final ID nsData = invoke(NSARRAY, "arrayWithObjects:", convertTypes(values));
-
         return invoke(NSDICTIONARY, "dictionaryWithObjects:forKeys:", nsData, nsKeys);
     }
 
