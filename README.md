@@ -19,7 +19,7 @@ Building
 * [Maven](http://maven.apache.org) 2.x
 * [Java](http://java.sun.com/) 5
 
-Check out and build:
+Check-out and build:
 
     git clone git://github.com/jdillon/grrrowl.git
     cd grrrowl
