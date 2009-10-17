@@ -19,6 +19,10 @@ package org.sonatype.grrrowl.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonatype.grrrowl.Growl;
+import org.sonatype.grrrowl.impl.jna.Foundation;
+import org.sonatype.grrrowl.impl.jna.ID;
+import org.sonatype.grrrowl.impl.jna.NSConstants;
+import org.sonatype.grrrowl.impl.jna.Selector;
 
 /**
  * Native (via <a href="https://jna.dev.java.net/">JNA</a>) implementation of {@link Growl}.

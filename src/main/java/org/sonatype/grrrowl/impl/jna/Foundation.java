@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.sonatype.grrrowl.impl;
+package org.sonatype.grrrowl.impl.jna;
 
 import com.sun.jna.Native;
 import org.slf4j.Logger;

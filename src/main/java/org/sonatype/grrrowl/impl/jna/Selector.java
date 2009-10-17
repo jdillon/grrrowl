@@ -14,30 +14,42 @@
  * limitations under the License.
  */
 
-package org.sonatype.grrrowl.impl;
+package org.sonatype.grrrowl.impl.jna;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.sonatype.grrrowl.Growl;
+import com.sun.jna.NativeLong;
 
 /**
- * Constants for NS Cocoa muck.
+ * Represents an Objective-C <tt>selector</tt> type.
  *
- * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
+ * @author spleaner
  *
  * @since 1.0
  */
-public interface NSConstants
+public class Selector
+    extends NativeLong
 {
-    String NSARRAY = "NSArray";
+    private String myName;
 
-    String NSDICTIONARY = "NSDictionary";
+    public Selector() {
+        this("undefined selector", 0);
+    }
 
-    String NSAPPLICATION = "NSApplication";
+    public Selector(String name, long value) {
+        super(value);
+        myName = name;
+    }
 
-    String NSMUTABLE_ARRAY = "NSMutableArray";
+    public String getName() {
+        return myName;
+    }
 
-    String NSAUTORELEASE_POOL = "NSAutoreleasePool";
+    @Override
+    public String toString() {
+        return String.format("[Selector %s]", myName);
+    }
 
-    String NSDISTRIBUTED_NOTIFICATION_CENTER = "NSDistributedNotificationCenter";
+    public Selector initName(final String name) {
+        myName = name;
+        return this;
+    }
 }
