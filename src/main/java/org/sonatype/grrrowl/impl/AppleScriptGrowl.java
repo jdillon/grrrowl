@@ -32,6 +32,8 @@ import java.io.StringWriter;
  * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
  *
  * @since 1.0
+ *
+ * @see <a href="http://growl.info/documentation/applescript-support.php">Growl AppleScript Support</a>
  */
 public class AppleScriptGrowl
     implements Growl
