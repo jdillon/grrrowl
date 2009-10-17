@@ -40,6 +40,8 @@ public class AppleScriptGrowl
 {
     private static final Logger log = LoggerFactory.getLogger(AppleScriptGrowl.class);
 
+    private static final String GROWL_HELPER_APP = "GrowlHelperApp";
+    
     private final ScriptEngineManager manager;
 
     private final ScriptEngine engine;
@@ -49,7 +51,6 @@ public class AppleScriptGrowl
     private String[] notifications;
 
     private String[] allowed;
-    private static final String GROWL_HELPER_APP = "GrowlHelperApp";
 
     public AppleScriptGrowl(final String appName) {
         assert appName != null;
@@ -111,12 +112,7 @@ public class AppleScriptGrowl
 
         log.trace("Register script:\n{}", buff);
 
-        try {
-            engine.eval(buff.toString());
-        }
-        catch (ScriptException e) {
-            throw new RuntimeException(e);
-        }
+        eval(buff);
     }
 
     public void notifyGrowlOf(final String notification, final String title, final String description) {
@@ -133,12 +129,18 @@ public class AppleScriptGrowl
         out.flush();
 
         log.trace("Notify script:\n{}", buff);
+
+        eval(buff);
+    }
+
+    private void eval(final StringWriter buff) {
+        assert buff != null;
         
         try {
             engine.eval(buff.toString());
         }
         catch (ScriptException e) {
-            throw new RuntimeException(e);
+            log.trace("Failed to evaluate script: " + buff, e);
         }
     }
 }
