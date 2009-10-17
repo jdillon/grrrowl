@@ -16,6 +16,8 @@
 
 package org.sonatype.grrrowl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonatype.grrrowl.impl.NativeGrowl;
 import org.sonatype.grrrowl.impl.NullGrowl;
 
@@ -28,6 +30,8 @@ import org.sonatype.grrrowl.impl.NullGrowl;
  */
 public class GrowlFactory
 {
+    private static final Logger log = LoggerFactory.getLogger(GrowlFactory.class);
+
     //
     // TODO: Consider adding applescript support a fallback if jna is missing:
     //       http://growl.info/documentation/applescript-support.php
@@ -35,11 +39,19 @@ public class GrowlFactory
     //
     
     public static Growl create(String appName) {
-        try {
-            return new NativeGrowl(appName);
+        assert appName != null;
+
+        final String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("mac")) {
+            try {
+                return new NativeGrowl(appName);
+            }
+            catch (Throwable t) {
+                log.trace("Could not load native impl using default", t);
+
+            }
         }
-        catch (Throwable t) {
-            return new NullGrowl();
-        }
+
+        return new NullGrowl();
     }
 }
