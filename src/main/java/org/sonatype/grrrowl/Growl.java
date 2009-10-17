@@ -25,12 +25,31 @@ package org.sonatype.grrrowl;
  */
 public interface Growl
 {
-    void register();
-
-    void notifyGrowlOf(String notification, String title, String description);
-
+    /**
+     * Set the list of notifications which are supported.
+     *
+     * @param notifications
+     */
     void setAllowedNotifications(String... notifications);
 
-    // This is the list of enabled notifications for the allowed list
-    void setDefaultNotifications(String... notifications);
+    /**
+     * Set the list of notifications which are enabled.
+     *
+     * @param notifications
+     */
+    void setEnabledNotifications(String... notifications);
+
+    /**
+     * Register.
+     */
+    void register();
+
+    /**
+     * Send a Growl notification.
+     * 
+     * @param notification
+     * @param title
+     * @param description
+     */
+    void notifyGrowlOf(String notification, String title, String description);
 }

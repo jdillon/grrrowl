@@ -71,7 +71,7 @@ public class AppleScriptGrowl
         this.notifications = notifications;
     }
 
-    public void setDefaultNotifications(final String... notifications) {
+    public void setEnabledNotifications(final String... notifications) {
         assert notifications != null;
         this.allowed = notifications;
     }

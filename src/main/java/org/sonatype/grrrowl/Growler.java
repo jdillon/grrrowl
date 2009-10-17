@@ -81,7 +81,7 @@ public class Growler
             enableAll();
         }
         growl.setAllowedNotifications(notifications.toArray(new String[notifications.size()]));
-        growl.setDefaultNotifications(enabled.toArray(new String[enabled.size()]));
+        growl.setEnabledNotifications(enabled.toArray(new String[enabled.size()]));
         growl.register();
     }
 

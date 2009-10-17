@@ -16,7 +16,6 @@
 
 package org.sonatype.grrrowl.impl;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.sonatype.grrrowl.Growl;
 
@@ -40,7 +39,7 @@ public class AppleScriptGrowlTest
             "bar"
         };
         growl.setAllowedNotifications(notifications);
-        growl.setDefaultNotifications(notifications);
+        growl.setEnabledNotifications(notifications);
         growl.register();
 
         growl.notifyGrowlOf("foo", "Test Foo", "This is a test of the 'foo' notification.");

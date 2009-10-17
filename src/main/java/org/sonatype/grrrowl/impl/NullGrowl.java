@@ -40,7 +40,7 @@ public class NullGrowl
         // nothing
     }
 
-    public void setDefaultNotifications(final String... notifications) {
+    public void setEnabledNotifications(final String... notifications) {
         // nothing
     }
 }

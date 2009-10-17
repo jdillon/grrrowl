@@ -108,7 +108,7 @@ public class NativeGrowl
         this.allNotifications = notifications;
     }
 
-    public void setDefaultNotifications(final String... notifications) {
+    public void setEnabledNotifications(final String... notifications) {
         assert notifications != null;
         this.defaultNotifications = notifications;
     }
