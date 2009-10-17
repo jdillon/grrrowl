@@ -59,6 +59,8 @@ public class AppleScriptGrowl
         if (engine == null) {
             throw new UnsupportedOperationException("AppleScript engine is not available");
         }
+
+        // TODO: Check if we can send scripts to apps not installed
     }
 
     public void setAllowedNotifications(final String... notifications) {

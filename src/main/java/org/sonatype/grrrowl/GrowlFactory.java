@@ -71,7 +71,6 @@ public class GrowlFactory
                 log.trace("Could not load native impl using default", t);
             }
 
-            // FIXME: Try and see if we can detect if this will work, else default to NullGrowl
             try {
                 return new AppleScriptGrowl(appName);
             }
