@@ -83,21 +83,17 @@ public class AppleScriptGrowl
 
         out.print("set the allNotificationsList to {");
         for (int i=0; i<notifications.length; i++) {
-            out.print("\"");
-            out.print(notifications[i]);
-            out.print("\"");
+            out.format("\"%s\"", notifications[i]);
             if (i+1<notifications.length) {
                 out.print(",");
             }
         }
-        out.print("} ");
+        out.print("}");
         out.println();
 
         out.print("set the enabledNotificationsList to {");
         for (int i=0; i<allowed.length; i++) {
-            out.print("\"");
-            out.print(allowed[i]);
-            out.print("\"");
+            out.format("\"%s\"", allowed[i]);
             if (i+1<allowed.length) {
                 out.print(",");
             }
@@ -108,7 +104,6 @@ public class AppleScriptGrowl
         out.format("register as application \"%s\"", appName);
         out.print(" all notifications allNotificationsList");
         out.print(" default notifications enabledNotificationsList");
-        // out.print(" icon of application \"Script Editor\"");
         out.println();
 
         out.println("end tell");
