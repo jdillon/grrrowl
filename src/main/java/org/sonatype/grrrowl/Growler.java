@@ -35,6 +35,8 @@ public class Growler
 
     private final Set<String> enabled = new LinkedHashSet<String>();
 
+    private boolean registered;
+
     public Growler(final String appName, final String... notifications) {
         this.growl = GrowlFactory.create(appName);
         if (notifications != null) {
@@ -83,6 +85,8 @@ public class Growler
         growl.setAllowedNotifications(notifications.toArray(new String[notifications.size()]));
         growl.setEnabledNotifications(enabled.toArray(new String[enabled.size()]));
         growl.register();
+
+        registered = true;
     }
 
     public void register() {
@@ -90,6 +94,9 @@ public class Growler
     }
 
     public void growl(final String notification, final String title, final String description) {
+        if (!registered) {
+            register();
+        }
         growl.notifyGrowlOf(notification, title, description);
     }
 }

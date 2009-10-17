@@ -80,11 +80,11 @@ public class AppleScriptGrowl
         StringWriter buff = new StringWriter();
         PrintWriter out = new PrintWriter(buff);
 
-        out.format("tell application '%s'", GROWL_HELPER_APP).println();
+        out.format("tell application \"%s\"", GROWL_HELPER_APP).println();
 
         out.print("set the allNotificationsList to {");
         for (int i=0; i<notifications.length; i++) {
-            out.format("'%s'", notifications[i]);
+            out.format("\"%s\"", notifications[i]);
             if (i+1<notifications.length) {
                 out.print(",");
             }
@@ -94,7 +94,7 @@ public class AppleScriptGrowl
 
         out.print("set the enabledNotificationsList to {");
         for (int i=0; i<allowed.length; i++) {
-            out.format("'%s'", allowed[i]);
+            out.format("\"%s\"", allowed[i]);
             if (i+1<allowed.length) {
                 out.print(",");
             }
@@ -102,7 +102,7 @@ public class AppleScriptGrowl
         out.print("}");
         out.println();
 
-        out.format("register as application '%s'", appName);
+        out.format("register as application \"%s\"", appName);
         out.print(" all notifications allNotificationsList");
         out.print(" default notifications enabledNotificationsList");
         out.println();
@@ -119,11 +119,11 @@ public class AppleScriptGrowl
         StringWriter buff = new StringWriter();
         PrintWriter out = new PrintWriter(buff);
 
-        out.format("tell application '%s'", GROWL_HELPER_APP).println();
-        out.format(" notify with name '%s'", notification);
-        out.format(" title '%s'", title);
-        out.format(" description '%s'", description);
-        out.format(" application name '%s'", appName).println();
+        out.format("tell application \"%s\"", GROWL_HELPER_APP).println();
+        out.format(" notify with name \"%s\"", notification);
+        out.format(" title \"%s\"", title);
+        out.format(" description \"%s\"", description);
+        out.format(" application name \"%s\"", appName).println();
         out.println();
         out.println("end tell");
         out.flush();

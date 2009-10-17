@@ -28,6 +28,14 @@ import org.sonatype.grrrowl.Growl;
 public class NullGrowl
     implements Growl
 {
+    public NullGrowl(final String ignore) {
+        // Nothing
+    }
+
+    public NullGrowl() {
+        // Nothing
+    }
+
     public void register() {
         // nothing
     }

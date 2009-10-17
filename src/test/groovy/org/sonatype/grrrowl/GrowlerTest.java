@@ -24,11 +24,17 @@ import org.junit.Test;
  * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
  */
 public class GrowlerTest
+    extends GrowlTestSupport
 {
     @Test
     public void testGrowl() throws Exception {
-        Growler growl = new Growler("Test Growler", "foo");
-        growl.register();
-        growl.growl("foo", "Test Foo", "This is a test of the 'foo' notification.");
+        Growler growl = new Growler(getClass().getName() + "1", "foo");
+        growl.growl("foo", "Test " + getClass().getSimpleName() + "1", getClass().getSimpleName());
+    }
+
+    @Test
+    public void testGrowlNative() throws Exception {
+        Growler growl = new Growler(getClass().getName() + "2", "foo");
+        growl.growl("foo", "Test " + getClass().getSimpleName() + "2", getClass().getSimpleName());
     }
 }

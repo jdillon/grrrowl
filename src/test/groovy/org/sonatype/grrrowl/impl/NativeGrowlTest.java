@@ -18,6 +18,7 @@ package org.sonatype.grrrowl.impl;
 
 import org.junit.Test;
 import org.sonatype.grrrowl.Growl;
+import org.sonatype.grrrowl.GrowlTestSupport;
 
 /**
  * Tests for {@link NativeGrowl}.
@@ -25,19 +26,19 @@ import org.sonatype.grrrowl.Growl;
  * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
  */
 public class NativeGrowlTest
+    extends GrowlTestSupport
 {
     @Test
     public void testGrowl() throws Exception {
-        final String os = System.getProperty("os.name").toLowerCase();
-        if (!os.contains("mac")) {
+        if (!isMacOsX()) {
             return;
         }
-        
-        Growl growl = new NativeGrowl("Test Growl");
-        growl.setAllowedNotifications("foo", "bar");
+
+        Growl growl = new NativeGrowl(getClass().getName());
+        growl.setAllowedNotifications("foo");
         growl.setEnabledNotifications("foo");
         growl.register();
 
-        growl.notifyGrowlOf("foo", "Test Foo", "This is a test of the 'foo' notification.");
+        growl.notifyGrowlOf("foo", "Test " + getClass().getSimpleName(), getClass().getSimpleName());
     }
 }
