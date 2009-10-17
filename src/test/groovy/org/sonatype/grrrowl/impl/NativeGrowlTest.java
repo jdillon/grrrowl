@@ -28,6 +28,11 @@ public class NativeGrowlTest
 {
     @Test
     public void testGrowl() throws Exception {
+        final String os = System.getProperty("os.name").toLowerCase();
+        if (!os.contains("mac")) {
+            return;
+        }
+        
         Growl growl = new NativeGrowl("Test Growl");
         String[] notifications = {
             "foo",
