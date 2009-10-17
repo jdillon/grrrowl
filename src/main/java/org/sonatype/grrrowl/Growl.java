@@ -1,5 +1,9 @@
 package org.sonatype.grrrowl;
 
+import org.sonatype.grrrowl.internal.Foundation;
+import org.sonatype.grrrowl.internal.ID;
+import org.sonatype.grrrowl.internal.Selector;
+
 /**
  * @author spleaner
  */
@@ -32,7 +36,6 @@ public class Growl
     public void register() {
         final ID autoReleasePool = createAutoReleasePool();
         final ID applicationIcon = getApplicationIcon();
-
         final ID defaultNotifications = fillArray(myDefaultNotification);
         final ID allNotifications = fillArray(myAllNotifications);
 

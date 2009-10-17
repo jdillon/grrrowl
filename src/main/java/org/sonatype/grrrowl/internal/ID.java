@@ -1,4 +1,4 @@
-package org.sonatype.grrrowl;
+package org.sonatype.grrrowl.internal;
 
 import com.sun.jna.NativeLong;
 
