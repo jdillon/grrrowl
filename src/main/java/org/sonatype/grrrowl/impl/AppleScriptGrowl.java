@@ -41,8 +41,6 @@ public class AppleScriptGrowl
     private static final Logger log = LoggerFactory.getLogger(AppleScriptGrowl.class);
 
     private static final String GROWL_HELPER_APP = "GrowlHelperApp";
-    
-    private final ScriptEngineManager manager;
 
     private final ScriptEngine engine;
 
@@ -57,7 +55,7 @@ public class AppleScriptGrowl
 
         this.appName = appName;
 
-        manager = new ScriptEngineManager();
+        ScriptEngineManager manager = new ScriptEngineManager();
         engine = manager.getEngineByName("AppleScript");
         if (engine == null) {
             throw new UnsupportedOperationException("AppleScript engine is not available");
