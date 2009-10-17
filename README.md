@@ -3,7 +3,8 @@ Description
 
 Support for Growl Notifications.
 
-This code comes directly from [Intellij IDEA Community Edition](http://www.jetbrains.org/display/IJOS/Home).
+This code comes from [Intellij IDEA Community Edition](http://www.jetbrains.org/display/IJOS/Home)
+and has been massaged slightly.
 
 Building
 --------
