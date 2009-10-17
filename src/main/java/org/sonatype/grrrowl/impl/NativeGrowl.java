@@ -29,47 +29,50 @@ import org.sonatype.grrrowl.Growl;
  * @since 1.0
  */
 public class NativeGrowl
-    implements Growl
+    implements Growl, NSConstants
 {
     private static final String GROWL_APPLICATION_REGISTRATION_NOTIFICATION = "GrowlApplicationRegistrationNotification";
-    private static final String GROWL_APP_NAME = "ApplicationName";
-    private static final String GROWL_APP_ICON = "ApplicationIcon";
-    private static final String GROWL_DEFAULT_NOTIFICATIONS = "DefaultNotifications";
-    private static final String GROWL_ALL_NOTIFICATIONS = "AllNotifications";
-    private static final String GROWL_NOTIFICATION_NAME = "NotificationName";
-    private static final String GROWL_NOTIFICATION_TITLE = "NotificationTitle";
-    private static final String GROWL_NOTIFICATION_DESCRIPTION = "NotificationDescription";
-    private static final String GROWL_NOTIFICATION = "GrowlNotification";
 
-    private static final String NSARRAY = "NSArray";
-    private static final String NSDICTIONARY = "NSDictionary";
-    private static final String NSAPPLICATION = "NSApplication";
-    private static final String NSMUTABLE_ARRAY = "NSMutableArray";
-    private static final String NSAUTORELEASE_POOL = "NSAutoreleasePool";
-    private static final String NSDISTRIBUTED_NOTIFICATION_CENTER = "NSDistributedNotificationCenter";
+    private static final String GROWL_APP_NAME = "ApplicationName";
+
+    private static final String GROWL_APP_ICON = "ApplicationIcon";
+
+    private static final String GROWL_DEFAULT_NOTIFICATIONS = "DefaultNotifications";
+
+    private static final String GROWL_ALL_NOTIFICATIONS = "AllNotifications";
+
+    private static final String GROWL_NOTIFICATION_NAME = "NotificationName";
+
+    private static final String GROWL_NOTIFICATION_TITLE = "NotificationTitle";
+
+    private static final String GROWL_NOTIFICATION_DESCRIPTION = "NotificationDescription";
+
+    private static final String GROWL_NOTIFICATION = "GrowlNotification";
 
     private static final Logger log = LoggerFactory.getLogger(NativeGrowl.class);
 
-    private String myProductName;
-    private String[] myAllNotifications;
-    private String[] myDefaultNotification;
+    private String appName;
 
-    public NativeGrowl(final String productName) {
-        assert productName != null;
-        myProductName = productName;
+    private String[] allNotifications;
+
+    private String[] defaultNotification;
+
+    public NativeGrowl(final String appName) {
+        assert appName != null;
+        this.appName = appName;
     }
 
     public void register() {
         final ID autoReleasePool = createAutoReleasePool();
         final ID applicationIcon = getApplicationIcon();
-        final ID defaultNotifications = fillArray(myDefaultNotification);
-        final ID allNotifications = fillArray(myAllNotifications);
+        final ID defaultNotifications = fillArray(defaultNotification);
+        final ID allNotifications = fillArray(this.allNotifications);
 
         final ID userDict = createDict(new String[]{
                 GROWL_APP_NAME, GROWL_APP_ICON, GROWL_DEFAULT_NOTIFICATIONS, GROWL_ALL_NOTIFICATIONS
             },
             new Object[]{
-                myProductName, applicationIcon, defaultNotifications, allNotifications
+                appName, applicationIcon, defaultNotifications, allNotifications
             });
 
         final ID center = invoke(NSDISTRIBUTED_NOTIFICATION_CENTER, "defaultCenter");
@@ -87,7 +90,7 @@ public class NativeGrowl
                 GROWL_NOTIFICATION_NAME, GROWL_NOTIFICATION_TITLE, GROWL_NOTIFICATION_DESCRIPTION, GROWL_APP_NAME
             },
             new Object[]{
-                notification, title, description, myProductName
+                notification, title, description, appName
             });
 
         final ID center = invoke(NSDISTRIBUTED_NOTIFICATION_CENTER, "defaultCenter");
@@ -98,11 +101,11 @@ public class NativeGrowl
     }
 
     public void setAllowedNotifications(final String... notifications) {
-        myAllNotifications = notifications;
+        this.allNotifications = notifications;
     }
 
     public void setDefaultNotifications(final String... notifications) {
-        myDefaultNotification = notifications;
+        this.defaultNotification = notifications;
     }
 
     private static ID createAutoReleasePool() {
