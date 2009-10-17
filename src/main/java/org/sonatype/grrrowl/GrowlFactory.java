@@ -21,6 +21,8 @@ import org.slf4j.LoggerFactory;
 import org.sonatype.grrrowl.impl.NativeGrowl;
 import org.sonatype.grrrowl.impl.NullGrowl;
 
+import java.lang.reflect.Constructor;
+
 /**
  * Provides an interface to <a href="http://growl.info">Growl</a>.
  *
@@ -32,6 +34,8 @@ public class GrowlFactory
 {
     private static final Logger log = LoggerFactory.getLogger(GrowlFactory.class);
 
+    public static final String TYPE = GrowlFactory.class.getName() + ".type";
+    
     //
     // TODO: Consider adding applescript support a fallback if jna is missing:
     //       http://growl.info/documentation/applescript-support.php
@@ -40,6 +44,22 @@ public class GrowlFactory
     
     public static Growl create(String appName) {
         assert appName != null;
+
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+
+        String className = System.getProperty(TYPE);
+        if (className != null) {
+            log.debug("Loading growl class: {}", className);
+
+            try {
+                Class type = cl.loadClass(className);
+                Constructor factory = type.getConstructor(String.class);
+                return (Growl) factory.newInstance(appName);
+            }
+            catch (Exception e) {
+                log.warn("Failed to construct growl of type: " + className, e);
+            }
+        }
 
         final String os = System.getProperty("os.name").toLowerCase();
         if (os.contains("mac")) {

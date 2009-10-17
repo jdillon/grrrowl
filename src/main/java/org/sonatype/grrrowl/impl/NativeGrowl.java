@@ -113,7 +113,7 @@ public class NativeGrowl
         return invoke(NSAUTORELEASE_POOL, "new");
     }
 
-    private static ID fillArray(final Object... a) {
+    private static ID fillArray(final Object[] a) {
         final ID result = invoke(NSMUTABLE_ARRAY, "array");
         for (Object s : a) {
             invoke(result, "addObject:", convertType(s));
@@ -142,7 +142,7 @@ public class NativeGrowl
         }
     }
 
-    private static Object[] convertTypes(final Object... v) {
+    private static Object[] convertTypes(final Object[] v) {
         assert v != null;
         final Object[] result = new Object[v.length];
         for (int i = 0; i < v.length; i++) {
