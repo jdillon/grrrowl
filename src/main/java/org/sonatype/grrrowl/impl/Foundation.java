@@ -49,16 +49,16 @@ public class Foundation
     /**
      * Get the ID of the NSClass with className
      */
-    public static ID getClass(String className) {
+    public static ID getClass(final String className) {
         log.trace("calling objc_getClass({})", className);
         return foundationLibrary.objc_getClass(className);
     }
 
-    public static Selector createSelector(String s) {
+    public static Selector createSelector(final String s) {
         return foundationLibrary.sel_registerName(s).initName(s);
     }
 
-    public static ID invoke(final ID id, final Selector selector, Object... args) {
+    public static ID invoke(final ID id, final Selector selector, final Object... args) {
         return foundationLibrary.objc_msgSend(id, selector, args);
     }
 
@@ -67,7 +67,7 @@ public class Foundation
      * <p/>
      * Note that the returned string must be freed with {@link #cfRelease(ID)}.
      */
-    public static ID cfString(String s) {
+    public static ID cfString(final String s) {
         // Use a byte[] rather than letting jna do the String -> char* marshalling itself.
         // Turns out about 10% quicker for long strings.
         try {
