@@ -18,6 +18,7 @@ package org.sonatype.grrrowl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.sonatype.grrrowl.impl.AppleScriptGrowl;
 import org.sonatype.grrrowl.impl.NativeGrowl;
 import org.sonatype.grrrowl.impl.NullGrowl;
 
@@ -36,13 +37,13 @@ public class GrowlFactory
 
     public static final String TYPE = GrowlFactory.class.getName() + ".type";
     
-    //
-    // TODO: Consider adding applescript support a fallback if jna is missing:
-    //       http://growl.info/documentation/applescript-support.php
-    //       Using javax.script muck to invoke.
-    //
-    
     public static Growl create(String appName) {
+        Growl growl = doCreate(appName);
+        log.trace("Using growl: {}", growl);
+        return growl;
+    }
+
+    private static Growl doCreate(String appName) {
         assert appName != null;
 
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
@@ -68,8 +69,10 @@ public class GrowlFactory
             }
             catch (Throwable t) {
                 log.trace("Could not load native impl using default", t);
-
             }
+
+            // FIXME: Try and see if we can detect if this will work, else default to NullGrowl
+            return new AppleScriptGrowl(appName);
         }
 
         return new NullGrowl();

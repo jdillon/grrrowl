@@ -16,31 +16,27 @@
 
 package org.sonatype.grrrowl.impl;
 
+import org.junit.Test;
 import org.sonatype.grrrowl.Growl;
 
 /**
- * A null/do-nothing {@link Growl}.
+ * Tests for {@link AppleScriptGrowl}.
  *
  * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
- *
- * @since 1.0
  */
-public class NullGrowl
-    implements Growl
+public class AppleScriptGrowlTest
 {
-    public void register() {
-        // nothing
-    }
+    @Test
+    public void testGrowl() throws Exception {
+        Growl growl = new AppleScriptGrowl("Test Growl");
+        String[] notifications = {
+            "foo",
+            "bar"
+        };
+        growl.setAllowedNotifications(notifications);
+        growl.setDefaultNotifications(notifications);
+        growl.register();
 
-    public void notifyGrowlOf(final String notification, final String title, final String description) {
-        // nothing
-    }
-
-    public void setAllowedNotifications(final String... notifications) {
-        // nothing
-    }
-
-    public void setDefaultNotifications(final String... notifications) {
-        // nothing
+        growl.notifyGrowlOf("foo", "Test Foo", "This is a test of the 'foo' notification.");
     }
 }
