@@ -12,7 +12,6 @@ Building
 
 * [Maven](http://maven.apache.org) 2.x
 * [Java](http://java.sun.com/) 5
-* [JNA](https://jna.dev.java.net) 3.2.x
 
 Check out and build:
 
