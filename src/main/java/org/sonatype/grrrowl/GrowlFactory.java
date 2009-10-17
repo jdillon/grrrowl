@@ -72,7 +72,12 @@ public class GrowlFactory
             }
 
             // FIXME: Try and see if we can detect if this will work, else default to NullGrowl
-            return new AppleScriptGrowl(appName);
+            try {
+                return new AppleScriptGrowl(appName);
+            }
+            catch (Throwable t) {
+                log.trace("Could not load AppleScript impl using default", t);
+            }
         }
 
         return new NullGrowl();
