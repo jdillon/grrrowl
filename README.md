@@ -32,6 +32,21 @@ Example Usage
     ....
     growler.growl("Notification1", "Title for Notification1", "Description for Notification1");
 
+or using enums:
+
+    import org.sonatype.grrrowl.Growler;
+    
+    enum Notifications {
+        Notification1,
+        Notification2 
+    }
+    ...
+    Growler growler = new Growler("My Application");
+    growler.add(Notifications.class);
+    growler.enableAll();
+    ....
+    growler.growl(Notifications.Notification1, "Title for Notification1", "Description for Notification1");
+
 Building
 --------
 
