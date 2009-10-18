@@ -37,10 +37,6 @@ public class Growler
 
     private boolean registered;
 
-    //
-    // TODO: Support using enum for notifications
-    //
-    
     public Growler(final String appName, final String... notifications) {
         this.growl = GrowlFactory.create(appName);
         if (notifications != null) {
@@ -49,6 +45,13 @@ public class Growler
     }
 
     public Growler(final String appName, final Enum... notifications) {
+        this.growl = GrowlFactory.create(appName);
+        if (notifications != null) {
+            add(notifications);
+        }
+    }
+
+    public Growler(final String appName, final Class<? extends Enum> notifications) {
         this.growl = GrowlFactory.create(appName);
         if (notifications != null) {
             add(notifications);
@@ -83,6 +86,14 @@ public class Growler
         }
     }
 
+    public void add(final Class<? extends Enum> notifications) {
+        assert notifications != null;
+
+        for (Enum n : notifications.getEnumConstants()) {
+            this.notifications.add(n.name());
+        }
+    }
+
     public void enable(final String... notifications) {
         assert notifications != null;
 
@@ -95,6 +106,14 @@ public class Growler
         assert notifications != null;
 
         for (Enum n : notifications) {
+            this.enabled.add(n.name());
+        }
+    }
+
+    public void enable(final Class<? extends Enum> notifications) {
+        assert notifications != null;
+
+        for (Enum n : notifications.getEnumConstants()) {
             this.enabled.add(n.name());
         }
     }

@@ -37,6 +37,12 @@ class GrowlerTest
         Growler growl = new Growler(getClass().name, TestNotifications.FOO)
         growl.growl(TestNotifications.FOO, getClass().simpleName, getClass().simpleName)
     }
+
+    @Test
+    void testGrowlWithEnumClass() {
+        Growler growl = new Growler(getClass().name, TestNotifications)
+        growl.growl(TestNotifications.FOO, getClass().simpleName, getClass().simpleName)
+    }
 }
 
 enum TestNotifications
