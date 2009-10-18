@@ -59,7 +59,7 @@ public class NativeGrowl
 
     private String[] allNotifications;
 
-    private String[] defaultNotifications;
+    private String[] enabledNotifications;
 
     public NativeGrowl(final String appName) {
         assert appName != null;
@@ -70,7 +70,7 @@ public class NativeGrowl
     public void register() {
         final ID autoReleasePool = createAutoReleasePool();
         final ID applicationIcon = getApplicationIcon();
-        final ID defaultNotifications = fillArray(this.defaultNotifications);
+        final ID defaultNotifications = fillArray(this.enabledNotifications);
         final ID allNotifications = fillArray(this.allNotifications);
         final ID userDict = createDict(new String[]{
                 GROWL_APP_NAME, GROWL_APP_ICON, GROWL_DEFAULT_NOTIFICATIONS, GROWL_ALL_NOTIFICATIONS
@@ -110,7 +110,7 @@ public class NativeGrowl
 
     public void setEnabledNotifications(final String... notifications) {
         assert notifications != null;
-        this.defaultNotifications = notifications;
+        this.enabledNotifications = notifications;
     }
 
     private static ID createAutoReleasePool() {

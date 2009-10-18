@@ -50,7 +50,7 @@ public class AppleScriptGrowl
 
     private String[] notifications;
 
-    private String[] allowed;
+    private String[] enabled;
 
     public AppleScriptGrowl(final String appName) {
         assert appName != null;
@@ -73,7 +73,7 @@ public class AppleScriptGrowl
 
     public void setEnabledNotifications(final String... notifications) {
         assert notifications != null;
-        this.allowed = notifications;
+        this.enabled = notifications;
     }
 
     public void register() {
@@ -93,9 +93,9 @@ public class AppleScriptGrowl
         out.println();
 
         out.print("set the enabledNotificationsList to {");
-        for (int i=0; i<allowed.length; i++) {
-            out.format("\"%s\"", allowed[i]);
-            if (i+1<allowed.length) {
+        for (int i=0; i< enabled.length; i++) {
+            out.format("\"%s\"", enabled[i]);
+            if (i+1< enabled.length) {
                 out.print(",");
             }
         }
