@@ -37,6 +37,10 @@ public class Growler
 
     private boolean registered;
 
+    //
+    // TODO: Support using enum for notifications
+    //
+    
     public Growler(final String appName, final String... notifications) {
         this.growl = GrowlFactory.create(appName);
         if (notifications != null) {
