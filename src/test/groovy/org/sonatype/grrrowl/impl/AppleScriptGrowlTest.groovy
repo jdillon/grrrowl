@@ -14,31 +14,30 @@
  * limitations under the License.
  */
 
-package org.sonatype.grrrowl.impl;
+package org.sonatype.grrrowl.impl
 
-import org.junit.Test;
-import org.sonatype.grrrowl.Growl;
-import org.sonatype.grrrowl.GrowlTestSupport;
+import org.junit.Test
+import org.sonatype.grrrowl.Growl
+import org.sonatype.grrrowl.GrowlTestSupport
 
 /**
- * Tests for {@link NativeGrowl}.
+ * Tests for {@link AppleScriptGrowl}.
  *
  * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
  */
-public class NativeGrowlTest
+class AppleScriptGrowlTest
     extends GrowlTestSupport
 {
     @Test
-    public void testGrowl() throws Exception {
+    void testGrowl() {
         if (!isMacOsX()) {
-            return;
+            return
         }
 
-        Growl growl = new NativeGrowl(getClass().getName());
-        growl.setAllowedNotifications("foo");
-        growl.setEnabledNotifications("foo");
-        growl.register();
-
-        growl.notifyGrowlOf("foo", "Test " + getClass().getSimpleName(), getClass().getSimpleName());
+        Growl growl = new AppleScriptGrowl(getClass().name)
+        growl.setAllowedNotifications("foo")
+        growl.setEnabledNotifications("foo")
+        growl.register()
+        growl.notifyGrowlOf("foo", getClass().simpleName, getClass().simpleName)
     }
 }

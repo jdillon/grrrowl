@@ -14,27 +14,30 @@
  * limitations under the License.
  */
 
-package org.sonatype.grrrowl;
+package org.sonatype.grrrowl.impl
 
-import org.junit.Test;
+import org.junit.Test
+import org.sonatype.grrrowl.Growl
+import org.sonatype.grrrowl.GrowlTestSupport
 
 /**
- * Tests for {@link Growler}.
+ * Tests for {@link NativeGrowl}.
  *
  * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
  */
-public class GrowlerTest
+public class NativeGrowlTest
     extends GrowlTestSupport
 {
     @Test
-    public void testGrowl() throws Exception {
-        Growler growl = new Growler(getClass().getName() + "1", "foo");
-        growl.growl("foo", "Test " + getClass().getSimpleName() + "1", getClass().getSimpleName());
-    }
+    void testGrowl() {
+        if (!isMacOsX()) {
+            return
+        }
 
-    @Test
-    public void testGrowlNative() throws Exception {
-        Growler growl = new Growler(getClass().getName() + "2", "foo");
-        growl.growl("foo", "Test " + getClass().getSimpleName() + "2", getClass().getSimpleName());
+        Growl growl = new NativeGrowl(getClass().name)
+        growl.setAllowedNotifications("foo")
+        growl.setEnabledNotifications("foo")
+        growl.register()
+        growl.notifyGrowlOf("foo", getClass().simpleName, getClass().simpleName)
     }
 }
