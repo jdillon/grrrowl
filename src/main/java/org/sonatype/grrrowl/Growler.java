@@ -48,8 +48,15 @@ public class Growler
         }
     }
 
+    public Growler(final String appName, final Enum... notifications) {
+        this.growl = GrowlFactory.create(appName);
+        if (notifications != null) {
+            add(notifications);
+        }
+    }
+
     public Growler(final String appName) {
-        this(appName, null);
+        this(appName, (String)null);
     }
 
     public Collection<String> getNotifications() {
@@ -68,11 +75,27 @@ public class Growler
         }
     }
 
+    public void add(final Enum... notifications) {
+        assert notifications != null;
+
+        for (Enum n : notifications) {
+            this.notifications.add(n.name());
+        }
+    }
+
     public void enable(final String... notifications) {
         assert notifications != null;
 
         for (String n : notifications) {
-            enabled.add(n);
+            this.enabled.add(n);
+        }
+    }
+
+    public void enable(final Enum... notifications) {
+        assert notifications != null;
+
+        for (Enum n : notifications) {
+            this.enabled.add(n.name());
         }
     }
 
@@ -102,5 +125,12 @@ public class Growler
             register();
         }
         growl.notifyGrowlOf(notification, title, description);
+    }
+
+    public void growl(final Enum notification, final String title, final String description) {
+        if (!registered) {
+            register();
+        }
+        growl.notifyGrowlOf(notification.name(), title, description);
     }
 }
