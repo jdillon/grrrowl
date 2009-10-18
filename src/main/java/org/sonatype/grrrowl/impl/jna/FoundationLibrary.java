@@ -20,7 +20,7 @@ import com.sun.jna.Library;
 import com.sun.jna.Structure;
 
 /**
- * ???
+ * Representation of elements from the Cocoa Foundation library required to Growl.
  *
  * @author spleaner
  *

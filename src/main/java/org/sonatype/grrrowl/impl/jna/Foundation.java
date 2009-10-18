@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 import java.io.UnsupportedEncodingException;
 
 /**
- * ???
+ * Implementation of elements from the Cocoa Foundation library required to Growl.
  *
  * @author spleaner
  *
@@ -64,11 +64,11 @@ public class Foundation
 
     /**
      * Return a CFString as an ID, toll-free bridged to NSString.
-     * <p/>
+     *
      * Note that the returned string must be freed with {@link #cfRelease(ID)}.
      */
     public static ID cfString(final String s) {
-        // Use a byte[] rather than letting jna do the String -> char* marshalling itself.
+        // Use a byte[] rather than letting jna do the String -> char* marshaling itself.
         // Turns out about 10% quicker for long strings.
         try {
             byte[] utf16Bytes = s.getBytes("UTF-16LE");
