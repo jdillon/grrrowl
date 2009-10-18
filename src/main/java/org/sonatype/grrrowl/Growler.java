@@ -51,10 +51,10 @@ public class Growler
         }
     }
 
-    public Growler(final String appName, final Class<? extends Enum> notifications) {
+    public Growler(final String appName, final Class<? extends Enum>... types) {
         this.growl = GrowlFactory.create(appName);
-        if (notifications != null) {
-            add(notifications);
+        if (types != null) {
+            add(types);
         }
     }
 
@@ -86,11 +86,13 @@ public class Growler
         }
     }
 
-    public void add(final Class<? extends Enum> notifications) {
-        assert notifications != null;
+    public void add(final Class<? extends Enum>... types) {
+        assert types != null;
 
-        for (Enum n : notifications.getEnumConstants()) {
-            this.notifications.add(n.name());
+        for (Class<? extends Enum> type : types) {
+            for (Enum n : type.getEnumConstants()) {
+                this.notifications.add(n.name());
+            }
         }
     }
 
@@ -110,11 +112,13 @@ public class Growler
         }
     }
 
-    public void enable(final Class<? extends Enum> notifications) {
-        assert notifications != null;
+    public void enable(final Class<? extends Enum>... types) {
+        assert types != null;
 
-        for (Enum n : notifications.getEnumConstants()) {
-            this.enabled.add(n.name());
+        for (Class<? extends Enum> type : types) {
+            for (Enum n : type.getEnumConstants()) {
+                this.enabled.add(n.name());
+            }
         }
     }
 
