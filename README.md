@@ -14,6 +14,24 @@ License
 
 [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
 
+Features
+--------
+
+* Native Growl support using [JNA](https://jna.dev.java.net)
+* AppleScript Growl when JNA is not present
+* Fallback to null implementation on unsupported platforms
+
+Example Usage
+-------------
+
+    import org.sonatype.grrrowl.Growler;
+    ...
+    Growler growler = new Growler("My Application");
+    growler.add("Notification1", "Notification2");
+    growler.enableAll();
+    ....
+    growler.growl("Notification1", "Title for Notification1", "Description for Notification1");
+
 Building
 --------
 
