@@ -26,9 +26,9 @@ Example Usage
 
     import org.sonatype.grrrowl.Growler;
     ...
-    Growler growler = new Growler("My Application");
-    growler.add("Notification1", "Notification2");
-    growler.enableAll();
+    Growler growler = new Growler("My Application")
+        .add("Notification1", "Notification2")
+        .enableAll()
     ....
     growler.growl("Notification1", "Title for Notification1", "Description for Notification1");
 
@@ -41,9 +41,9 @@ or using enums:
         Notification2 
     }
     ...
-    Growler growler = new Growler("My Application");
-    growler.add(Notifications.class);
-    growler.enableAll();
+    Growler growler = new Growler("My Application")
+        .add(Notifications.class)
+        .enableAll();
     ....
     growler.growl(Notifications.Notification1, "Title for Notification1", "Description for Notification1");
 
