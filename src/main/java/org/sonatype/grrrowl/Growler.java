@@ -94,9 +94,7 @@ public class Growler
         assert types != null;
 
         for (Class<? extends Enum> type : types) {
-            for (Enum n : type.getEnumConstants()) {
-                this.notifications.add(n.name());
-            }
+            add(type.getEnumConstants());
         }
 
         return this;
@@ -126,9 +124,7 @@ public class Growler
         assert types != null;
 
         for (Class<? extends Enum> type : types) {
-            for (Enum n : type.getEnumConstants()) {
-                this.enabled.add(n.name());
-            }
+            enable(type.getEnumConstants());
         }
 
         return this;
@@ -146,6 +142,7 @@ public class Growler
         if (enableAll) {
             enableAll();
         }
+        
         growl.setAllowedNotifications(notifications.toArray(new String[notifications.size()]));
         growl.setEnabledNotifications(enabled.toArray(new String[enabled.size()]));
         growl.register();
