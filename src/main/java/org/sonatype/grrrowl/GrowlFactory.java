@@ -62,8 +62,7 @@ public class GrowlFactory
             }
         }
 
-        final String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("mac")) {
+        if (isMacOs()) {
             try {
                 return new NativeGrowl(appName);
             }
@@ -80,5 +79,13 @@ public class GrowlFactory
         }
 
         return new NullGrowl();
+    }
+
+    static boolean isMacOs() {
+        final String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("mac")) {
+            return true;
+        }
+        return false;
     }
 }

@@ -30,7 +30,7 @@ public class NativeGrowlTest
 {
     @Test
     void testGrowl() {
-        if (!isMacOsX()) {
+        if (!isMacOs()) {
             return
         }
 

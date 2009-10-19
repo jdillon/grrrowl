@@ -16,8 +16,6 @@
 
 package org.sonatype.grrrowl;
 
-import org.junit.Test;
-
 /**
  * Support for {@link Growl} tests.
  *
@@ -25,11 +23,7 @@ import org.junit.Test;
  */
 public class GrowlTestSupport
 {
-    protected boolean isMacOsX() {
-        final String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("mac")) {
-            return true;
-        }
-        return false;
+    protected boolean isMacOs() {
+        return GrowlFactory.isMacOs();
     }
 }

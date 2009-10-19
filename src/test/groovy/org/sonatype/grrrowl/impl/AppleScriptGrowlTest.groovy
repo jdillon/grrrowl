@@ -30,7 +30,7 @@ class AppleScriptGrowlTest
 {
     @Test
     void testGrowl() {
-        if (!isMacOsX()) {
+        if (!isMacOs()) {
             return
         }
 
