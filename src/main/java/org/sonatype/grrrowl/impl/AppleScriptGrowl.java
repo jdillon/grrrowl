@@ -116,6 +116,10 @@ public class AppleScriptGrowl
     }
 
     public void notifyGrowlOf(final String notification, final String title, final String description) {
+        assert notification != null;
+        assert title != null;
+        assert description != null;
+        
         StringWriter buff = new StringWriter();
         PrintWriter out = new PrintWriter(buff);
 
