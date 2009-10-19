@@ -70,23 +70,27 @@ public class Growler
         return enabled;
     }
 
-    public void add(final String... notifications) {
+    public Growler add(final String... notifications) {
         assert notifications != null;
 
         for (String n : notifications) {
             this.notifications.add(n);
         }
+
+        return this;
     }
 
-    public void add(final Enum... notifications) {
+    public Growler add(final Enum... notifications) {
         assert notifications != null;
 
         for (Enum n : notifications) {
             this.notifications.add(n.name());
         }
+
+        return this;
     }
 
-    public void add(final Class<? extends Enum>... types) {
+    public Growler add(final Class<? extends Enum>... types) {
         assert types != null;
 
         for (Class<? extends Enum> type : types) {
@@ -94,25 +98,31 @@ public class Growler
                 this.notifications.add(n.name());
             }
         }
+
+        return this;
     }
 
-    public void enable(final String... notifications) {
+    public Growler enable(final String... notifications) {
         assert notifications != null;
 
         for (String n : notifications) {
             this.enabled.add(n);
         }
+
+        return this;
     }
 
-    public void enable(final Enum... notifications) {
+    public Growler enable(final Enum... notifications) {
         assert notifications != null;
 
         for (Enum n : notifications) {
             this.enabled.add(n.name());
         }
+
+        return this;
     }
 
-    public void enable(final Class<? extends Enum>... types) {
+    public Growler enable(final Class<? extends Enum>... types) {
         assert types != null;
 
         for (Class<? extends Enum> type : types) {
@@ -120,15 +130,19 @@ public class Growler
                 this.enabled.add(n.name());
             }
         }
+
+        return this;
     }
 
-    public void enableAll() {
+    public Growler enableAll() {
         for (String n : notifications) {
             enable(n);
         }
+
+        return this;
     }
 
-    public void register(final boolean enableAll) {
+    public Growler register(final boolean enableAll) {
         if (enableAll) {
             enableAll();
         }
@@ -137,10 +151,14 @@ public class Growler
         growl.register();
 
         registered = true;
+
+        return this;
     }
 
-    public void register() {
+    public Growler register() {
         register(true);
+
+        return this;
     }
 
     public void growl(final String notification, final String title, final String description) {
