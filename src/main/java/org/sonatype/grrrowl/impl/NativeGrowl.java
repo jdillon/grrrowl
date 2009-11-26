@@ -27,6 +27,9 @@ import org.sonatype.grrrowl.impl.jna.Selector;
 /**
  * Native (via <a href="https://jna.dev.java.net/">JNA</a>) implementation of {@link Growl}.
  *
+ * This code comes from <a href="http://www.jetbrains.org/display/IJOS/Home">Intellij IDEA Community Edition</a>
+ * and has been massaged slightly.
+ * 
  * @author spleaner
  * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
  *

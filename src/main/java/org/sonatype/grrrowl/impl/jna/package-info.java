@@ -15,7 +15,10 @@
  */
 
 /**
- * {@link NativeGrowl} JNA support.
+ * {@link org.sonatype.grrrowl.impl.NativeGrowl} JNA support.
+ *
+ * This code comes from <a href="http://www.jetbrains.org/display/IJOS/Home">Intellij IDEA Community Edition</a>
+ * and has been massaged slightly.
  *
  * @since 1.0
  */
