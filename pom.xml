@@ -28,7 +28,7 @@
     <groupId>org.sonatype.grrrowl</groupId>
     <artifactId>grrrowl</artifactId>
     <name>Grrrowl</name>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
 
     <description>
         Provides support for Growl.
