@@ -64,7 +64,10 @@ public class Growler
     }
 
     /**
+     * Check if Growl is running.
+     *
      * @since 1.1
+     * @return True if Growl is running.
      */
     public boolean isRunning() {
         return growl.isGrowlRunning();

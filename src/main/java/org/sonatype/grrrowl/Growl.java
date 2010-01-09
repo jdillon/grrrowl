@@ -40,7 +40,10 @@ public interface Growl
     void setEnabledNotifications(String... notifications);
 
     /**
+     * Check if Growl is running.
+     *
      * @since 1.1
+     * @return True if Growl is running.
      */
     boolean isGrowlRunning();
 
