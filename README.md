@@ -3,7 +3,7 @@ Description
 
 Support for Growl Notifications.
 
-This code comes from [Intellij IDEA Community Edition](http://www.jetbrains.org/display/IJOS/Home)
+JNA code comes from [Intellij IDEA Community Edition](http://www.jetbrains.org/display/IJOS/Home)
 and has been massaged slightly.
 
 Updated to support Growling from AppleScript if the JNA library is not installed, else defaulting
