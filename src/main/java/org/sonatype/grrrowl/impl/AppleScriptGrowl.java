@@ -54,7 +54,6 @@ public class AppleScriptGrowl
 
     public AppleScriptGrowl(final String appName) {
         assert appName != null;
-
         this.appName = appName;
 
         ScriptEngineManager manager = new ScriptEngineManager();
@@ -62,8 +61,6 @@ public class AppleScriptGrowl
         if (engine == null) {
             throw new UnsupportedOperationException("Engine is not available: " + ENGINE_NAME);
         }
-
-        // TODO: Check if we can send scripts to apps not installed
     }
 
     public void setAllowedNotifications(final String... notifications) {
@@ -81,10 +78,8 @@ public class AppleScriptGrowl
         PrintWriter out = new PrintWriter(buff);
 
         out.println("tell application \"System Events\"");
-	    out.println("set isRunning to count of (every process whose name is \"GrowlHelperApp\") > 0");
+	    out.format("set isRunning to count of (every process whose name is \"%s\") > 0", GROWL_HELPER_APP).println();
         out.println("end tell");
-
-        log.trace("Is running script:\n{}", buff);
 
         Object result = eval(buff);
         if (result == null) {
@@ -133,8 +128,6 @@ public class AppleScriptGrowl
         out.println("end tell");
         out.flush();
 
-        log.trace("Register script:\n{}", buff);
-
         eval(buff);
     }
 
@@ -155,13 +148,13 @@ public class AppleScriptGrowl
         out.println("end tell");
         out.flush();
 
-        log.trace("Notify script:\n{}", buff);
-
         eval(buff);
     }
 
     private Object eval(final StringWriter buff) {
         assert buff != null;
+
+        log.trace("Evaluating script:\n{}", buff);
 
         Object result = null;
         try {
