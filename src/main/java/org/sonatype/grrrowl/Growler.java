@@ -16,6 +16,7 @@
 
 package org.sonatype.grrrowl;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -62,6 +63,13 @@ public class Growler
         this(appName, (String)null);
     }
 
+    /**
+     * @since 1.1
+     */
+    public boolean isRunning() {
+        return growl.isGrowlRunning();
+    }
+
     public Collection<String> getNotifications() {
         return notifications;
     }
@@ -73,9 +81,7 @@ public class Growler
     public Growler add(final String... notifications) {
         assert notifications != null;
 
-        for (String n : notifications) {
-            this.notifications.add(n);
-        }
+        this.notifications.addAll(Arrays.asList(notifications));
 
         return this;
     }
@@ -103,9 +109,7 @@ public class Growler
     public Growler enable(final String... notifications) {
         assert notifications != null;
 
-        for (String n : notifications) {
-            this.enabled.add(n);
-        }
+        this.enabled.addAll(Arrays.asList(notifications));
 
         return this;
     }
@@ -139,15 +143,17 @@ public class Growler
     }
 
     public Growler register(final boolean enableAll) {
-        if (enableAll) {
-            enableAll();
-        }
-        
-        growl.setAllowedNotifications(notifications.toArray(new String[notifications.size()]));
-        growl.setEnabledNotifications(enabled.toArray(new String[enabled.size()]));
-        growl.register();
+        if (growl.isGrowlRunning()) {
+            if (enableAll) {
+                enableAll();
+            }
 
-        registered = true;
+            growl.setAllowedNotifications(notifications.toArray(new String[notifications.size()]));
+            growl.setEnabledNotifications(enabled.toArray(new String[enabled.size()]));
+            growl.register();
+
+            registered = true;
+        }
 
         return this;
     }
@@ -159,16 +165,20 @@ public class Growler
     }
 
     public void growl(final String notification, final String title, final String description) {
-        if (!registered) {
-            register();
+        if (growl.isGrowlRunning()) {
+            if (!registered) {
+                register();
+            }
+            growl.notifyGrowlOf(notification, title, description);
         }
-        growl.notifyGrowlOf(notification, title, description);
     }
 
     public void growl(final Enum notification, final String title, final String description) {
-        if (!registered) {
-            register();
+        if (growl.isGrowlRunning()) {
+            if (!registered) {
+                register();
+            }
+            growl.notifyGrowlOf(notification.name(), title, description);
         }
-        growl.notifyGrowlOf(notification.name(), title, description);
     }
 }

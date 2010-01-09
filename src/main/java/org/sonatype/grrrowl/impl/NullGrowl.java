@@ -36,6 +36,10 @@ public class NullGrowl
         // Nothing
     }
 
+    public boolean isGrowlRunning() {
+        return false;
+    }
+
     public void register() {
         // nothing
     }

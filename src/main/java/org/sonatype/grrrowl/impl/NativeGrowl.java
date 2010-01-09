@@ -70,6 +70,11 @@ public class NativeGrowl
         Foundation.load();
     }
 
+    public boolean isGrowlRunning() {
+        // FIXME: Need to either drop the native impl muck, or figure out how to properly implement stuff 
+        return true;
+    }
+
     public void register() {
         final ID autoReleasePool = createAutoReleasePool();
         final ID applicationIcon = getApplicationIcon();

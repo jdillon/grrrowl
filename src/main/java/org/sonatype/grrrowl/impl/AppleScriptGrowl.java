@@ -76,6 +76,29 @@ public class AppleScriptGrowl
         this.enabled = notifications;
     }
 
+    public boolean isGrowlRunning() {
+        StringWriter buff = new StringWriter();
+        PrintWriter out = new PrintWriter(buff);
+
+        out.println("tell application \"System Events\"");
+	    out.println("set isRunning to count of (every process whose name is \"GrowlHelperApp\") > 0");
+        out.println("end tell");
+
+        log.trace("Is running script:\n{}", buff);
+
+        Object result = eval(buff);
+        if (result == null) {
+            return false;
+        }
+        else if (result instanceof Number) {
+            return ((Number)result).intValue() > 0;
+        }
+
+        log.warn("Unable to decode result: {}", result);
+
+        return false;
+    }
+
     public void register() {
         StringWriter buff = new StringWriter();
         PrintWriter out = new PrintWriter(buff);
@@ -102,9 +125,9 @@ public class AppleScriptGrowl
         out.print("}");
         out.println();
 
-        out.format("register as application \"%s\"", appName);
-        out.print(" all notifications allNotificationsList");
-        out.print(" default notifications enabledNotificationsList");
+        out.format("register as application \"%s\"" +
+            " all notifications allNotificationsList" +
+            " default notifications enabledNotificationsList", appName);
         out.println();
 
         out.println("end tell");
@@ -124,11 +147,11 @@ public class AppleScriptGrowl
         PrintWriter out = new PrintWriter(buff);
 
         out.format("tell application \"%s\"", GROWL_HELPER_APP).println();
-        out.format(" notify with name \"%s\"", notification);
-        out.format(" title \"%s\"", title);
-        out.format(" description \"%s\"", description);
-        out.format(" application name \"%s\"", appName).println();
+
+        out.format("notify with name \"%s\" title \"%s\" description \"%s\" application name \"%s\"",
+            notification, title, description, appName);
         out.println();
+        
         out.println("end tell");
         out.flush();
 
@@ -137,14 +160,18 @@ public class AppleScriptGrowl
         eval(buff);
     }
 
-    private void eval(final StringWriter buff) {
+    private Object eval(final StringWriter buff) {
         assert buff != null;
-        
+
+        Object result = null;
         try {
-            engine.eval(buff.toString());
+            result = engine.eval(buff.toString());
+            log.trace("Eval result: {}", result);
         }
         catch (ScriptException e) {
             log.trace("Failed to evaluate script: " + buff, e);
         }
+
+        return result;
     }
 }

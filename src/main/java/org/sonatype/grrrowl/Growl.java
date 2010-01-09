@@ -40,6 +40,11 @@ public interface Growl
     void setEnabledNotifications(String... notifications);
 
     /**
+     * @since 1.1
+     */
+    boolean isGrowlRunning();
+
+    /**
      * Register.
      */
     void register();
