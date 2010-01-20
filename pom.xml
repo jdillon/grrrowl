@@ -52,7 +52,24 @@
         <developerConnection>scm:git:ssh://git@github.com/jdillon/grrrowl.git</developerConnection>
         <url>http://github.com/jdillon/grrrowl</url>
     </scm>
-
+    
+    <ciManagement>
+        <system>Hudson</system>
+        <url>https://grid.sonatype.org/ci/job/Grrrowl</url>
+    </ciManagement>
+    
+    <developers>
+        <developer>
+            <id>jdillon</id>
+            <name>Jason Dillon</name>
+            <email>jason@planet57.com</email>
+            <roles>
+                <role>Build Master</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
