@@ -28,7 +28,6 @@ import java.lang.reflect.Constructor;
  * Provides an interface to <a href="http://growl.info">Growl</a>.
  *
  * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
- *
  * @since 1.0
  */
 public class GrowlFactory
@@ -83,9 +82,6 @@ public class GrowlFactory
 
     static boolean isMacOs() {
         final String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("mac")) {
-            return true;
-        }
-        return false;
+        return os.contains("mac");
     }
 }

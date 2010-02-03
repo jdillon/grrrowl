@@ -32,7 +32,6 @@ import org.sonatype.grrrowl.impl.jna.Selector;
  * 
  * @author spleaner
  * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
- *
  * @since 1.0
  */
 public class NativeGrowl

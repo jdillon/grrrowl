@@ -25,12 +25,13 @@ import java.util.Set;
  * A helper to manage sending notifications to {@link Growl}.
  *
  * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
- *
  * @since 1.0
  */
 public class Growler
 {
-    private final Growl growl;
+    private final String appName;
+
+    private Growl growl;
 
     private final Set<String> notifications = new LinkedHashSet<String>();
 
@@ -39,14 +40,18 @@ public class Growler
     private boolean registered;
 
     public Growler(final String appName, final String... notifications) {
-        this.growl = GrowlFactory.create(appName);
+        assert appName != null;
+        this.appName = appName;
+
         if (notifications != null) {
             add(notifications);
         }
     }
 
     public Growler(final String appName, final Enum... notifications) {
-        this.growl = GrowlFactory.create(appName);
+        assert appName != null;
+        this.appName = appName;
+
         if (notifications != null) {
             add(notifications);
         }
@@ -54,6 +59,9 @@ public class Growler
 
     public Growler(final String appName, final Class<? extends Enum>... types) {
         this.growl = GrowlFactory.create(appName);
+        assert appName != null;
+        this.appName = appName;
+
         if (types != null) {
             add(types);
         }
@@ -63,14 +71,21 @@ public class Growler
         this(appName, (String)null);
     }
 
+    private Growl getGrowl() {
+        if (growl == null) {
+            growl = GrowlFactory.create(appName);
+        }
+        return growl;
+    }
+
     /**
      * Check if Growl is running.
      *
-     * @since 1.1
      * @return True if Growl is running.
+     * @since 1.1
      */
     public boolean isRunning() {
-        return growl.isGrowlRunning();
+        return getGrowl().isGrowlRunning();
     }
 
     public Collection<String> getNotifications() {
@@ -146,14 +161,14 @@ public class Growler
     }
 
     public Growler register(final boolean enableAll) {
-        if (growl.isGrowlRunning()) {
+        if (isRunning()) {
             if (enableAll) {
                 enableAll();
             }
 
-            growl.setAllowedNotifications(notifications.toArray(new String[notifications.size()]));
-            growl.setEnabledNotifications(enabled.toArray(new String[enabled.size()]));
-            growl.register();
+            getGrowl().setAllowedNotifications(notifications.toArray(new String[notifications.size()]));
+            getGrowl().setEnabledNotifications(enabled.toArray(new String[enabled.size()]));
+            getGrowl().register();
 
             registered = true;
         }
@@ -168,20 +183,20 @@ public class Growler
     }
 
     public void growl(final String notification, final String title, final String description) {
-        if (growl.isGrowlRunning()) {
+        if (isRunning()) {
             if (!registered) {
                 register();
             }
-            growl.notifyGrowlOf(notification, title, description);
+            getGrowl().notifyGrowlOf(notification, title, description);
         }
     }
 
     public void growl(final Enum notification, final String title, final String description) {
-        if (growl.isGrowlRunning()) {
+        if (isRunning()) {
             if (!registered) {
                 register();
             }
-            growl.notifyGrowlOf(notification.name(), title, description);
+            getGrowl().notifyGrowlOf(notification.name(), title, description);
         }
     }
 }

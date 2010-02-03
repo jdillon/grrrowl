@@ -23,7 +23,6 @@ import com.sun.jna.Structure;
  * Representation of elements from the Cocoa Foundation library required to Growl.
  *
  * @author spleaner
- *
  * @since 1.0
  */
 public interface FoundationLibrary

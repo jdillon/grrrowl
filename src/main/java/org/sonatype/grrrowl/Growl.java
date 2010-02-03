@@ -20,7 +20,6 @@ package org.sonatype.grrrowl;
  * Provides an interface to <a href="http://growl.info">Growl</a>.
  *
  * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
- *
  * @since 1.0
  */
 public interface Growl

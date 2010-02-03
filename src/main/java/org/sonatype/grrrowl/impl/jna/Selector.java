@@ -22,7 +22,6 @@ import com.sun.jna.NativeLong;
  * Represents an Objective-C <tt>selector</tt> type.
  *
  * @author spleaner
- *
  * @since 1.0
  */
 public class Selector

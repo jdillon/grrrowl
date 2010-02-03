@@ -26,7 +26,6 @@ import java.io.UnsupportedEncodingException;
  * Implementation of elements from the Cocoa Foundation library required to Growl.
  *
  * @author spleaner
- *
  * @since 1.0
  */
 public class Foundation

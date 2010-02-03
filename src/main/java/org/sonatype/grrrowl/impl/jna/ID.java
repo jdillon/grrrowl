@@ -22,7 +22,6 @@ import com.sun.jna.NativeLong;
  * Represents a Objective-C <tt>ID</tt> type.
  *
  * @author spleaner
- *
  * @since 1.0
  */
 public class ID
