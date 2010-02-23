@@ -3,10 +3,9 @@ Description
 
 Support for Growl Notifications.
 
-JNA code comes from [Intellij IDEA Community Edition](http://www.jetbrains.org/display/IJOS/Home)
-and has been massaged slightly.
+Uses [HawtJNI](http://hawtjni.fusesource.org/) to generate a native library to access Growl.
 
-Updated to support Growling from AppleScript if the JNA library is not installed, else defaulting
+Updated to support Growling from AppleScript if the native library is not installed, else defaulting
 to a version that simply swallows notifications (for platforms w/o Growl support).
 
 License
@@ -17,7 +16,7 @@ License
 Features
 --------
 
-* Native Growl support using [JNA](https://jna.dev.java.net)
+* Native Growl support using [HawtJNI](http://hawtjni.fusesource.org/)
 * AppleScript Growl when JNA is not present
 * Fallback to null implementation on unsupported platforms
 
@@ -54,6 +53,7 @@ Building
 
 * [Maven](http://maven.apache.org) 2+
 * [Java](http://java.sun.com/) 5+
+* [Xcode](http://developer.apple.com/technology/xcode.html) 3.2+
 
 Check-out and build:
 
