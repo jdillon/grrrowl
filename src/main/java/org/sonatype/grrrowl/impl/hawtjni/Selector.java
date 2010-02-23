@@ -14,42 +14,45 @@
  * limitations under the License.
  */
 
-package org.sonatype.grrrowl.impl.jna;
+package org.sonatype.grrrowl.impl.hawtjni;
 
-import com.sun.jna.NativeLong;
 
 /**
- * Represents a Objective-C <tt>ID</tt> type.
+ * Represents an Objective-C <tt>selector</tt> type.
  *
  * @author spleaner
  * @since 1.0
  */
-public class ID
+public class Selector
     extends NativeLong
 {
-    static ID fromLong(long value) {
-        return new ID(value);
+    private String myName;
+
+    public Selector() {
+        this("undefined selector", 0);
     }
 
-    // for JNA
-    public ID() {
-        super();
+    public Selector(long value) {
+        this("undefined selector", value);
     }
 
-    protected ID(long value) {
+    public Selector(String name, long value) {
         super(value);
+        myName = name;
     }
 
-    protected ID(ID anotherID) {
-        this(anotherID.longValue());
+
+    public String getName() {
+        return myName;
     }
 
     @Override
     public String toString() {
-        return String.format("[ID 0x%x]", longValue()); //$NON-NLS-1$
+        return String.format("[Selector %s]", myName);
     }
 
-    public boolean isNull() {
-        return longValue() == 0;
+    public Selector initName(final String name) {
+        myName = name;
+        return this;
     }
 }

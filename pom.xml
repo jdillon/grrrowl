@@ -76,8 +76,19 @@
     
     <repositories>
         <repository>
-            <id>maven2.java.net</id>
-            <url>http://download.java.net/maven/2</url>
+            <id>hawtjni.snapshot.fusesource.org</id>
+            <url>http://hawtjni.fusesource.org/repo/snapshot</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>hawtjni.release.fusesource.org</id>
+            <url>http://hawtjni.fusesource.org/repo/release</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -85,9 +96,16 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+
     </repositories>
 
     <dependencies>
+        <dependency>
+          <groupId>org.fusesource.hawtjni</groupId>
+          <artifactId>hawtjni-runtime</artifactId>
+          <version>1.0-SNAPSHOT</version>
+        </dependency>
+        
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -99,13 +117,6 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.5.10</version>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna</artifactId>
-            <version>3.2.3</version>
-            <optional>true</optional>
         </dependency>
         
         <dependency>
@@ -248,6 +259,44 @@
                 <artifactId>maven-scm-plugin</artifactId>
                 <version>1.2</version>
             </plugin>
+            
+            <plugin>
+              <groupId>org.fusesource.hawtjni</groupId>
+              <artifactId>maven-hawtjni-plugin</artifactId>
+              <version>1.0-SNAPSHOT</version>
+              <executions>
+                <execution>
+                  <goals>
+                    <goal>generate</goal>
+                    <goal>build</goal>
+                    <goal>package-jar</goal>
+                    <goal>package-source</goal>
+                  </goals>
+                  <configuration>
+                    <callbacks>false</callbacks>
+                    <copyright><![CDATA[
+/*******************************************************************************
+ * Copyright (C) 2009, Progress Software Corporation and/or its 
+ * subsidiaries or affiliates.  All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
+                    ]]></copyright>
+                  </configuration>
+                </execution>
+              </executions>        
+            </plugin>
+                  
         </plugins>
     </build>
 

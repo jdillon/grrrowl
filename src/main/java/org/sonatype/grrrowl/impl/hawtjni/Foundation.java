@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package org.sonatype.grrrowl.impl.jna;
+package org.sonatype.grrrowl.impl.hawtjni;
 
-import com.sun.jna.Native;
+import java.io.UnsupportedEncodingException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.UnsupportedEncodingException;
+import static org.sonatype.grrrowl.impl.hawtjni.FoundationLibrary.*;
+
 
 /**
  * Implementation of elements from the Cocoa Foundation library required to Growl.
@@ -32,17 +34,6 @@ public class Foundation
 {
     private static final Logger log = LoggerFactory.getLogger(Foundation.class);
 
-    private static final FoundationLibrary foundationLibrary;
-
-    static {
-        // Set JNA to convert java.lang.String to char* using UTF-8, and match that with
-        // the way we tell CF to interpret our char*
-        // May be removed if we use toStringViaUTF16
-        System.setProperty("jna.encoding", "UTF8");
-
-        foundationLibrary = (FoundationLibrary) Native.loadLibrary("Foundation", FoundationLibrary.class);
-    }
-
     private Foundation() {}
 
     /**
@@ -50,17 +41,29 @@ public class Foundation
      */
     public static ID getClass(final String className) {
         log.trace("calling objc_getClass({})", className);
-        return foundationLibrary.objc_getClass(className);
+        return objc_getClass(className);
     }
 
     public static Selector createSelector(final String s) {
-        return foundationLibrary.sel_registerName(s).initName(s);
+        return sel_registerName(s).initName(s);
     }
 
-    public static ID invoke(final ID id, final Selector selector, final Object... args) {
-        return foundationLibrary.objc_msgSend(id, selector, args);
+    public static ID invoke(final ID id, final Selector selector) {
+        return objc_msgSend(id, selector);
+    }
+    public static ID invoke(ID id, Selector selector, ID arg1) {
+        return objc_msgSend(id, selector, arg1);
     }
 
+    public static ID invoke(ID id, Selector selector, ID arg1, ID arg2) {
+        return objc_msgSend(id, selector, arg1, arg2);
+    }
+
+    public static ID invoke(ID id, Selector selector, ID arg1, ID arg2, ID arg3, boolean arg4) {
+        return objc_msgSend(id, selector, arg1, arg2, arg3, arg4);
+    }
+    
+    
     /**
      * Return a CFString as an ID, toll-free bridged to NSString.
      *
@@ -71,7 +74,7 @@ public class Foundation
         // Turns out about 10% quicker for long strings.
         try {
             byte[] utf16Bytes = s.getBytes("UTF-16LE");
-            return foundationLibrary.CFStringCreateWithBytes(null, utf16Bytes,
+            return CFStringCreateWithBytes(null, utf16Bytes,
                 utf16Bytes.length, 0x14000100, (byte) 0); /* kTextEncodingUnicodeDefault + kUnicodeUTF16LEFormat */
         }
         catch (UnsupportedEncodingException x) {
@@ -80,12 +83,13 @@ public class Foundation
     }
 
     public static void cfRetain(final ID id) {
-        foundationLibrary.CFRetain(id);
+        CFRetain(id);
     }
 
     public static void cfRelease(final ID id) {
-        foundationLibrary.CFRelease(id);
+        CFRelease(id);
     }
 
     public static void load() {}
+
 }

@@ -19,10 +19,10 @@ package org.sonatype.grrrowl.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonatype.grrrowl.Growl;
-import org.sonatype.grrrowl.impl.jna.Foundation;
-import org.sonatype.grrrowl.impl.jna.ID;
-import org.sonatype.grrrowl.impl.jna.NSConstants;
-import org.sonatype.grrrowl.impl.jna.Selector;
+import org.sonatype.grrrowl.impl.hawtjni.Foundation;
+import org.sonatype.grrrowl.impl.hawtjni.ID;
+import org.sonatype.grrrowl.impl.hawtjni.NSConstants;
+import org.sonatype.grrrowl.impl.hawtjni.Selector;
 
 /**
  * Native (via <a href="https://jna.dev.java.net/">JNA</a>) implementation of {@link Growl}.
@@ -87,7 +87,7 @@ public class NativeGrowl
             });
 
         final ID center = invoke(NSDISTRIBUTED_NOTIFICATION_CENTER, "defaultCenter");
-        final Object notificationName = Foundation.cfString(GROWL_APPLICATION_REGISTRATION_NOTIFICATION).toNative();
+        final ID notificationName = Foundation.cfString(GROWL_APPLICATION_REGISTRATION_NOTIFICATION);
         invoke(center, "postNotificationName:object:userInfo:deliverImmediately:", notificationName, null, userDict, true);
         invoke(autoReleasePool, "release");
     }
@@ -104,7 +104,7 @@ public class NativeGrowl
             });
 
         final ID center = invoke(NSDISTRIBUTED_NOTIFICATION_CENTER, "defaultCenter");
-        final Object notificationName = Foundation.cfString(GROWL_NOTIFICATION).toNative();
+        final ID notificationName = Foundation.cfString(GROWL_NOTIFICATION);
 
         invoke(center, "postNotificationName:object:userInfo:deliverImmediately:", notificationName, null, dict, true);
         invoke(autoReleasePool, "release");
@@ -129,39 +129,28 @@ public class NativeGrowl
         for (Object s : a) {
             invoke(result, "addObject:", convertType(s));
         }
-
         return result;
     }
 
     private static ID createDict(final String[] keys, final Object[] values) {
         assert keys != null;
         assert values != null;
-        final ID nsKeys = invoke(NSARRAY, "arrayWithObjects:", convertTypes(keys));
-        final ID nsData = invoke(NSARRAY, "arrayWithObjects:", convertTypes(values));
-        return invoke(NSDICTIONARY, "dictionaryWithObjects:forKeys:", nsData, nsKeys);
+        return invoke(NSDICTIONARY, "dictionaryWithObjects:forKeys:", fillArray(keys), fillArray(values));
     }
 
-    private static Object convertType(final Object o) {
+
+    private static ID convertType(final Object o) {
         if (o instanceof ID) {
-            return o;
+            return ((ID) o);
         }
         else if (o instanceof String) {
-            return Foundation.cfString((String) o).toNative();
+            return Foundation.cfString((String) o);
         }
         else {
             throw new IllegalArgumentException("Unsupported type: " + o.getClass());
         }
     }
-
-    private static Object[] convertTypes(final Object[] v) {
-        assert v != null;
-        final Object[] result = new Object[v.length];
-        for (int i = 0; i < v.length; i++) {
-            result[i] = convertType(v[i]);
-        }
-        return result;
-    }
-
+    
     //
     // TODO: Allow the icon to be given
     //
@@ -172,21 +161,31 @@ public class NativeGrowl
         return invoke(nsImage, "TIFFRepresentation");
     }
 
-    private static ID invoke(final String className, final String selector, final Object... args) {
-        assert className != null;
-        assert selector != null;
-        return invoke(Foundation.getClass(className), selector, args);
+    private static ID invoke(final String className, final String selector) {
+        return invoke(Foundation.getClass(className), selector);
     }
-
-    private static ID invoke(final ID id, final String selector, final Object... args) {
+    private static ID invoke(final ID id, final String selector) {
+        return invoke(id, Foundation.createSelector(selector));
+    }    
+    private static ID invoke(final ID id, final Selector selector) {
         assert id != null;
         assert selector != null;
-        return invoke(id, Foundation.createSelector(selector), args);
+        return Foundation.invoke(id, selector);
     }
 
-    private static ID invoke(final ID id, final Selector selector, final Object... args) {
+    private ID invoke(ID id, String selector, ID arg1, ID arg2, ID arg3, boolean arg4) {
         assert id != null;
         assert selector != null;
-        return Foundation.invoke(id, selector, args);
+        return Foundation.invoke(id, Foundation.createSelector(selector), arg1, arg2, arg3, arg4);
+    }
+    private static ID invoke(ID id, String selector, ID arg1) {
+        assert id != null;
+        assert selector != null;
+        return Foundation.invoke(id, Foundation.createSelector(selector), arg1);
+    }
+    private static ID invoke(String id, String selector, ID arg1, ID arg2) {
+        assert id != null;
+        assert selector != null;
+        return Foundation.invoke(Foundation.getClass(id), Foundation.createSelector(selector), arg1, arg2);
     }
 }

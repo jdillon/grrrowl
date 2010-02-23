@@ -14,25 +14,12 @@
  * limitations under the License.
  */
 
-package org.sonatype.grrrowl.impl.jna;
-
 /**
- * Constants for NS Cocoa muck.
+ * {@link org.sonatype.grrrowl.impl.NativeGrowl} JNA support.
  *
- * @author <a href="mailto:jason@planet57.com">Jason Dillon</a>
+ * This code comes from <a href="http://www.jetbrains.org/display/IJOS/Home">Intellij IDEA Community Edition</a>
+ * and has been massaged slightly.
+ *
  * @since 1.0
  */
-public interface NSConstants
-{
-    String NSARRAY = "NSArray";
-
-    String NSDICTIONARY = "NSDictionary";
-
-    String NSAPPLICATION = "NSApplication";
-
-    String NSMUTABLE_ARRAY = "NSMutableArray";
-
-    String NSAUTORELEASE_POOL = "NSAutoreleasePool";
-
-    String NSDISTRIBUTED_NOTIFICATION_CENTER = "NSDistributedNotificationCenter";
-}
+package org.sonatype.grrrowl.impl.hawtjni;
