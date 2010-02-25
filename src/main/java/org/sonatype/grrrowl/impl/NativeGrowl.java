@@ -135,7 +135,7 @@ public class NativeGrowl
     private static ID createDict(final String[] keys, final Object[] values) {
         assert keys != null;
         assert values != null;
-        return invoke(NSDICTIONARY, "dictionaryWithObjects:forKeys:", fillArray(keys), fillArray(values));
+        return invoke(NSDICTIONARY, "dictionaryWithObjects:forKeys:", fillArray(values), fillArray(keys));
     }
 
 
