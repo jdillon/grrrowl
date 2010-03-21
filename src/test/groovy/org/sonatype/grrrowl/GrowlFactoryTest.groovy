@@ -38,6 +38,10 @@ class GrowlFactoryTest
 
     @Test
     void testGrowlNative() {
+        if (!isMacOs()) {
+            return
+        }
+
         System.setProperty(GrowlFactory.TYPE, NativeGrowl.class.name)
         Growler growl = new Growler(getClass().name, "foo")
         growl.growl("foo", "Test Native", "native")
