@@ -1,3 +1,5 @@
+[![DepShield Badge](https://depshield.sonatype.org/badges/jdillon/grrrowl/depshield.svg)](https://depshield.github.io)
+
 Description
 -----------
 
